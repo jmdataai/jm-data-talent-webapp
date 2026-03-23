@@ -1,52 +1,108 @@
-import { useEffect } from "react";
-import "@/App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import '@/App.css';
+import axios from 'axios';
+import { Toaster } from '@/components/ui/sonner';
+import { Navbar } from '@/components/Navbar';
+import { HeroSection } from '@/components/HeroSection';
+import { ServicesSection } from '@/components/ServicesSection';
+import { StatsSection } from '@/components/StatsSection';
+import { IndustriesSection } from '@/components/IndustriesSection';
+import { AISection } from '@/components/AISection';
+import { CaseStudiesSection } from '@/components/CaseStudiesSection';
+import { TestimonialsSection } from '@/components/TestimonialsSection';
+import { LocationsSection } from '@/components/LocationsSection';
+import { CTASection } from '@/components/CTASection';
+import { Footer } from '@/components/Footer';
+import { BookDemoModal } from '@/components/BookDemoModal';
+import { JobsModal } from '@/components/JobsModal';
+import { JobApplicationModal } from '@/components/JobApplicationModal';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
-const Home = () => {
-  const helloWorldApi = async () => {
+function App() {
+  const [demoModal, setDemoModal] = useState({ isOpen: false, formType: 'demo' });
+  const [jobsModal, setJobsModal] = useState(false);
+  const [applicationModal, setApplicationModal] = useState({ isOpen: false, job: null });
+
+  useEffect(() => {
+    // Seed jobs on first load
+    seedJobs();
+  }, []);
+
+  const seedJobs = async () => {
     try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
+      await axios.post(`${API}/seed-jobs`);
+    } catch (error) {
+      console.error('Error seeding jobs:', error);
     }
   };
 
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
+  const handleBookDemo = (formType) => {
+    setDemoModal({ isOpen: true, formType });
+  };
 
-  return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
-    </div>
-  );
-};
+  const handleViewJobs = () => {
+    setJobsModal(true);
+  };
 
-function App() {
+  const handleApplyJob = (job) => {
+    setJobsModal(false);
+    setApplicationModal({ isOpen: true, job });
+  };
+
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <Navbar onBookDemo={handleBookDemo} />
+      
+      <main>
+        <HeroSection
+          onBookDemo={handleBookDemo}
+          onViewJobs={handleViewJobs}
+        />
+        
+        <ServicesSection onEnquire={() => handleBookDemo('consultation')} />
+        
+        <StatsSection />
+        
+        <IndustriesSection />
+        
+        <AISection onBookDemo={handleBookDemo} />
+        
+        <CaseStudiesSection />
+        
+        <TestimonialsSection />
+        
+        <LocationsSection />
+        
+        <CTASection
+          onBookDemo={handleBookDemo}
+          onViewJobs={handleViewJobs}
+        />
+      </main>
+      
+      <Footer />
+      
+      {/* Modals */}
+      <BookDemoModal
+        isOpen={demoModal.isOpen}
+        onClose={() => setDemoModal({ isOpen: false, formType: 'demo' })}
+        formType={demoModal.formType}
+      />
+      
+      <JobsModal
+        isOpen={jobsModal}
+        onClose={() => setJobsModal(false)}
+        onApply={handleApplyJob}
+      />
+      
+      <JobApplicationModal
+        isOpen={applicationModal.isOpen}
+        onClose={() => setApplicationModal({ isOpen: false, job: null })}
+        job={applicationModal.job}
+      />
+      
+      <Toaster position="top-right" richColors />
     </div>
   );
 }
