@@ -1,0 +1,136 @@
+{
+  "theme": "light",
+  "typography": {
+    "headings": {
+      "font_family": "Chivo, sans-serif",
+      "weights": ["300", "700", "900"],
+      "styling": "Tight tracking (tracking-tighter), never use Inter for headings."
+    },
+    "body": {
+      "font_family": "IBM Plex Sans, sans-serif",
+      "weights": ["400", "500"],
+      "styling": "Loose line height (leading-relaxed) for readability."
+    },
+    "overlines": "Uppercase + Tiny + Wide Spacing (tracking-[0.2em]).",
+    "logo_specifics": {
+      "jm": {
+        "text": "JM",
+        "color": "#0e1629",
+        "size": "text-4xl md:text-5xl",
+        "weight": "font-black"
+      },
+      "data_talent": {
+        "text": "DATA TALENT",
+        "color": "#3c83f5",
+        "size": "text-xl md:text-2xl",
+        "weight": "font-medium tracking-widest"
+      }
+    }
+  },
+  "colors": {
+    "primary": "#3c83f5",
+    "dark": "#0e1629",
+    "light_grey": "#f5f6f8",
+    "background": "#ffffff",
+    "text": "#0e1629",
+    "accent": "#3c83f5",
+    "archetype_strategy": "The Swiss & High-Contrast mixed with Corporate Authority. Primary blue is strictly used for CTAs and critical accents. Dark (#0e1629) anchors the design. Light grey (#f5f6f8) is used for section banding and bento cards."
+  },
+  "visual_enhancers": {
+    "surfaces": "Mix of 'Crystal Glass' (bg-white/70 backdrop-blur-xl border-white/40) for sticky navs and 'Tactile Neumorphism' (sharp 1px border, flat backgrounds) for service bento cards.",
+    "borders": "Grid Borders (The Technical Look) - expose the skeleton with subtle borders (border-border/40).",
+    "shadows": "Ambient shadows only (shadow-sm or shadow-lg on hover), avoiding deep muddy drop shadows."
+  },
+  "grids": {
+    "marketing_tetris": "Use grid-cols-1 md:grid-cols-8 lg:grid-cols-12 with wide gaps (gap-8 to gap-12). Prioritize asymmetry. Use col-span-full md:col-span-8 row-span-2 for hero texts.",
+    "dense_dashboard_style": "For Job Listings and AI feature comparisons, use tight grid-cols-1 md:grid-cols-3 lg:grid-cols-4 with gap-4."
+  },
+  "layouts": {
+    "hero": "Split layout. Left: High-impact typography stating Recruitment & AI solutions. Right: Immersive React Three Fiber Canvas. Do NOT use generic centered hero.",
+    "services_80_20": "Bento grid prioritizing IT Staffing (80% area) and AI Solutions (20% area visually distinctly highlighted).",
+    "industries": "The Swiss Grid: Overlapping elements, stark typography.",
+    "locations": "Single location (27 Caragh Green, Naas, Kildare, Ireland W91 DXA9) featured prominently, possibly with a dark-mode card."
+  },
+  "motion": {
+    "scrolling": "Lenis smooth scrolling is mandatory for momentum.",
+    "interactions": "Hover states on all cards (slight lift -translate-y-1, border color darkens).",
+    "entrance": "Staggered fade-up for bento grid children using Framer Motion."
+  },
+  "accessibility": {
+    "contrast": "Minimum 4.5:1 for normal text. Ensure white text on #3c83f5 is accessible. Use text-shadow over any 3D or image backgrounds if text overlays them.",
+    "motion": "Respect prefers-reduced-motion.",
+    "testing": "All interactive elements MUST include data-testid attributes (e.g., data-testid='job-apply-button')."
+  },
+  "media": {
+    "image_constraints": "Images MUST NOT exceed 80vh on mobile devices. Use object-cover for bento box images.",
+    "3d_strategy": "React Three Fiber in Hero. A rotating wireframe brain or an abstract geometric mesh representing data and talent matching."
+  },
+  "3d_libraries": {
+    "recommended": "@react-three/fiber, @react-three/drei",
+    "implementation_steps": [
+      "1. Install three @react-three/fiber @react-three/drei",
+      "2. Create a Canvas component in the Hero section (.js or .jsx file).",
+      "3. Add OrbitControls (autoRotate, enableZoom={false}).",
+      "4. Render an Icosahedron or a point mesh (representing a data brain) with a wireframe material in the brand color #3c83f5.",
+      "5. Alternatively, use @splinetool/react-spline if you have a Spline URL, but R3F is preferred for native generation."
+    ]
+  },
+  "image_urls": [
+    {
+      "url": "https://images.pexels.com/photos/1367276/pexels-photo-1367276.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Diverse team engaged in a business meeting with laptops in a modern office setting.",
+      "category": "services_recruitment"
+    },
+    {
+      "url": "https://images.pexels.com/photos/6930549/pexels-photo-6930549.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "A diverse team collaborating in a modern office environment, discussing work on a laptop.",
+      "category": "about_us"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1573164574572-cb89e39749b4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwzfHxidXNpbmVzcyUyMG1lZXRpbmd8ZW58MHx8fHwxNzc0MjI3OTgwfDA&ixlib=rb-4.1.0&q=85",
+      "description": "group of people sitting beside rectangular wooden table with laptops",
+      "category": "case_studies"
+    },
+    {
+      "url": "https://images.pexels.com/photos/1181396/pexels-photo-1181396.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+      "description": "Business meeting with diverse team discussing projects in a modern conference room.",
+      "category": "blog_insights"
+    }
+  ],
+  "component_path": {
+    "ui_components": "/app/frontend/src/components/ui",
+    "pages": "/app/frontend/src/pages",
+    "custom_sections": "/app/frontend/src/components/sections"
+  },
+  "instructions_to_main_agent": [
+    "You are building a B2B IT Recruitment & AI Solutions website for JM DATA TALENT.",
+    "Ensure all files created are .js or .jsx, NOT .tsx or .ts.",
+    "Structure it similarly to Test Triangle (Hero, Services, Industries, Case Studies, Testimonials, News, Locations).",
+    "The split is visually 80% Recruitment, 20% AI Solutions. Emphasize staffing heavily.",
+    "Must implement a fully functional form for 'Book a Demo' or 'Contact' with Shadcn Form/Input components.",
+    "Use raw HTML/Tailwind for complex marketing layouts like bento grids, overlapping hero elements, do NOT rely strictly on Shadcn Cards for layout.",
+    "Include a React Three Fiber component in the Hero section representing an abstract AI/Data node system.",
+    "Create modals for Job Application and Book Demo using Shadcn Dialog.",
+    "DO NOT ASK QUESTIONS. Make decisions independently.",
+    "DO NOT use a transparent background in the sticky header. Ensure white/70 with backdrop-blur and a subtle border.",
+    "Ensure the location is correctly listed as: '27 Caragh Green, Naas, Kildare, Ireland W91 DXA9'.",
+    "Use the specific brand logo requirement: 'JM' in Black (large), 'DATA TALENT' in Primary Blue #3c83f5 (small)."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "You tend to converge toward generic outputs. Avoid 'AI slop'.",
+    "Do not make generic centered layouts or simplistic gradients.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur).",
+    "You MUST NOT apply universal transition (transition: all). Use specific properties.",
+    "You MUST NOT center align the app container (.App { text-align: center; }).",
+    "Always use modern button styles (pill-shaped or sharp) with interaction animations.",
+    "NEVER use AI assistant Emojis like 🤖🧠💭💡.",
+    "Every interaction needs micro-animations - hover states, transitions, parallax effects.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Missing image categories = use provided images, DO NOT use placeholder text.",
+    "Prioritize using pre-existing components from src/components/ui.",
+    "Components MUST use named exports (export const ComponentName = ...).",
+    "Pages MUST use default exports (export default function PageName() {...}).",
+    "Use sonner for toasts, located in /app/frontend/src/components/ui/sonner.js."
+  ]
+}
