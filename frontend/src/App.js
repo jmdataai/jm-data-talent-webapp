@@ -6,6 +6,7 @@ import { Navbar } from '@/components/Navbar';
 import { HeroSection } from '@/components/HeroSection';
 import { PartnersSection } from '@/components/PartnersSection';
 import { TechNetworkSection } from '@/components/TechNetworkSection';
+import { AboutSection } from '@/components/AboutSection';
 import { ServicesSection } from '@/components/ServicesSection';
 import { StatsSection } from '@/components/StatsSection';
 import { IndustriesSection } from '@/components/IndustriesSection';
@@ -66,6 +67,8 @@ function App() {
         <PartnersSection />
         
         <TechNetworkSection />
+        
+        <AboutSection />
         
         <ServicesSection onEnquire={() => handleBookDemo('consultation')} />
         

@@ -10,9 +10,9 @@ export const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Company info */}
           <div className="md:col-span-2">
-            <div className="flex items-baseline gap-2 mb-4">
-              <span className="text-3xl font-black">JM</span>
-              <span className="text-xl font-medium tracking-widest text-[#3c83f5]">
+            <div className="flex items-center gap-1.5 mb-4">
+              <span className="text-3xl font-black" style={{ fontFamily: 'Manrope', letterSpacing: '-0.05em' }}>JM</span>
+              <span className="text-[10px] font-bold tracking-[0.2em] text-[#3c83f5] uppercase self-center" style={{ fontFamily: 'Inter' }}>
                 DATA TALENT
               </span>
             </div>
