@@ -10,12 +10,11 @@ export const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Company info */}
           <div className="md:col-span-2">
-            <div className="flex items-center gap-1.5 mb-4">
-              <span className="text-3xl font-black" style={{ fontFamily: 'Manrope', letterSpacing: '-0.05em' }}>JM</span>
-              <span className="text-[10px] font-bold tracking-[0.2em] text-[#3c83f5] uppercase self-center" style={{ fontFamily: 'Inter' }}>
-                DATA TALENT
-              </span>
-            </div>
+            <img 
+              src="/logo.png" 
+              alt="JM DATA TALENT" 
+              className="h-8 mb-4"
+            />
             <p className="text-gray-400 leading-relaxed mb-6 max-w-md">
               Ireland's leading IT recruitment specialist and AI solutions provider. 
               Connecting top tech talent with innovative companies worldwide.

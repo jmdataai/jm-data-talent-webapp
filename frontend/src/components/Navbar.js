@@ -29,24 +29,13 @@ export const Navbar = ({ onBookDemo }) => {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          {/* Logo - Matching stitch design exactly */}
-          <a href="#" className="flex items-center gap-1.5" data-testid="logo-link">
-            <span 
-              className="text-[40px] leading-none font-black text-[#0e1629]" 
-              style={{ 
-                fontFamily: 'Manrope', 
-                letterSpacing: '-0.05em',
-                lineHeight: '1'
-              }}
-            >
-              JM
-            </span>
-            <span 
-              className="text-[10px] font-bold tracking-[0.2em] text-[#0066ff] uppercase self-center" 
-              style={{ fontFamily: 'Inter', paddingTop: '2px' }}
-            >
-              DATA TALENT
-            </span>
+          {/* Logo - Using client's exact logo image */}
+          <a href="#" className="flex items-center" data-testid="logo-link">
+            <img 
+              src="/logo.png" 
+              alt="JM DATA TALENT" 
+              className="h-10"
+            />
           </a>
 
           {/* Desktop navigation - Clean and minimal like stitch */}
