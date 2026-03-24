@@ -6,8 +6,18 @@ import { ArrowRight, Users, Briefcase } from 'lucide-react';
 export const HeroSection = ({ onBookDemo, onViewJobs }) => {
   return (
     <>
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-[#f5f6f8] via-white to-[#f5f6f8]" data-testid="hero-section">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="relative min-h-screen flex items-center overflow-hidden" data-testid="hero-section">
+        {/* Background image with overlay */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/hero-image.png" 
+            alt="Professional tech team"
+            className="w-full h-full object-cover opacity-10"
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#f5f6f8] via-white to-[#f5f6f8] opacity-95"></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Content */}
             <div className="space-y-8 animate-fadeInUp">
@@ -86,8 +96,8 @@ export const HeroSection = ({ onBookDemo, onViewJobs }) => {
         </div>
 
         {/* Background decorative elements */}
-        <div className="absolute top-20 right-10 w-72 h-72 bg-[#3c83f5]/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-[#3c83f5]/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-20 right-10 w-72 h-72 bg-[#3c83f5]/5 rounded-full blur-3xl z-0"></div>
+        <div className="absolute bottom-20 left-10 w-96 h-96 bg-[#3c83f5]/5 rounded-full blur-3xl z-0"></div>
       </section>
 
       {/* Trusted Partners Section */}
