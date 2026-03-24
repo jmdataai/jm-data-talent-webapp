@@ -4,6 +4,8 @@ import axios from 'axios';
 import { Toaster } from '@/components/ui/sonner';
 import { Navbar } from '@/components/Navbar';
 import { HeroSection } from '@/components/HeroSection';
+import { PartnersSection } from '@/components/PartnersSection';
+import { TechNetworkSection } from '@/components/TechNetworkSection';
 import { ServicesSection } from '@/components/ServicesSection';
 import { StatsSection } from '@/components/StatsSection';
 import { IndustriesSection } from '@/components/IndustriesSection';
@@ -60,6 +62,10 @@ function App() {
           onBookDemo={handleBookDemo}
           onViewJobs={handleViewJobs}
         />
+        
+        <PartnersSection />
+        
+        <TechNetworkSection />
         
         <ServicesSection onEnquire={() => handleBookDemo('consultation')} />
         
