@@ -50,12 +50,12 @@ export const Navbar = ({ onBookDemo }) => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
-            {/* Logo */}
+            {/* Logo with updated styling */}
             <a href="#" className="flex items-baseline gap-2" data-testid="logo-link">
-              <span className="text-4xl md:text-5xl font-black text-[#0e1629]">
+              <span className="text-5xl md:text-6xl font-black text-[#0e1629]" style={{ fontFamily: 'Manrope', letterSpacing: '-0.03em' }}>
                 JM
               </span>
-              <span className="text-xl md:text-2xl font-medium tracking-widest text-[#3c83f5]">
+              <span className="text-sm md:text-base font-bold tracking-widest text-[#3c83f5]" style={{ fontFamily: 'Inter', textTransform: 'uppercase' }}>
                 DATA TALENT
               </span>
             </a>

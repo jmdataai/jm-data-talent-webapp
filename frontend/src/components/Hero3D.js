@@ -12,6 +12,19 @@ export const Hero3D = () => {
     let nodes = [];
     let connections = [];
     
+    // Tech labels for nodes
+    const techLabels = [
+      'SAP', 'AI/ML', 'React', 'Python', 'Cloud', 'DevOps',
+      'Java', 'Data', '.NET', 'AWS', 'Azure', 'Salesforce',
+      'Node.js', 'Angular', 'Vue', 'Docker', 'K8s', 'MongoDB',
+      'PostgreSQL', 'Microservices', 'Agile', 'CI/CD', 'Security', 'Blockchain'
+    ];
+    
+    const companyNames = [
+      'FinTech', 'Pharma', 'Tech Co', 'Healthcare',
+      'Banking', 'E-commerce', 'Insurance', 'Retail'
+    ];
+    
     // Set canvas size
     const resize = () => {
       canvas.width = canvas.offsetWidth * window.devicePixelRatio;
@@ -22,9 +35,9 @@ export const Hero3D = () => {
     resize();
     window.addEventListener('resize', resize);
     
-    // Node types: talent (candidates) and companies
+    // Node types: talent (with tech labels) and companies
     class Node {
-      constructor(type) {
+      constructor(type, label) {
         const centerX = canvas.offsetWidth / 2;
         const centerY = canvas.offsetHeight / 2;
         const angle = Math.random() * Math.PI * 2;
@@ -34,7 +47,8 @@ export const Hero3D = () => {
         this.y = centerY + Math.sin(angle) * radius;
         this.targetX = this.x;
         this.targetY = this.y;
-        this.type = type; // 'talent' or 'company'
+        this.type = type;
+        this.label = label;
         this.size = type === 'talent' ? 6 : 12;
         this.color = type === 'talent' ? '#3c83f5' : '#0e1629';
         this.opacity = 1;
@@ -81,19 +95,69 @@ export const Hero3D = () => {
           ctx.arc(this.x, this.y, this.size + 4, 0, Math.PI * 2);
           ctx.stroke();
         }
+        
+        // Draw labels
+        if (this.label) {
+          ctx.save();
+          ctx.font = this.type === 'company' ? 'bold 11px Inter' : '9px Inter';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          
+          if (this.type === 'company') {
+            // Company labels - below the node with background
+            const textY = this.y + this.size + 18;
+            const metrics = ctx.measureText(this.label);
+            const padding = 6;
+            
+            // Background
+            ctx.fillStyle = 'rgba(14, 22, 41, 0.9)';
+            ctx.fillRect(
+              this.x - metrics.width / 2 - padding,
+              textY - 7,
+              metrics.width + padding * 2,
+              14
+            );
+            
+            // Text
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText(this.label, this.x, textY);
+          } else {
+            // Tech labels - next to the node with subtle background
+            const textX = this.x + this.size + 12;
+            const metrics = ctx.measureText(this.label);
+            const padding = 4;
+            
+            // Background
+            ctx.fillStyle = 'rgba(60, 131, 245, 0.15)';
+            ctx.fillRect(
+              textX - padding,
+              this.y - 6,
+              metrics.width + padding * 2,
+              12
+            );
+            
+            // Text
+            ctx.fillStyle = '#3c83f5';
+            ctx.fillText(this.label, textX + metrics.width / 2, this.y);
+          }
+          ctx.restore();
+        }
       }
     }
     
-    // Initialize nodes - more talent than companies (representing candidates)
+    // Initialize nodes - companies with names
     const companyNodes = [];
     for (let i = 0; i < 8; i++) {
-      const node = new Node('company');
+      const node = new Node('company', companyNames[i]);
       nodes.push(node);
       companyNodes.push(node);
     }
     
-    for (let i = 0; i < 60; i++) {
-      nodes.push(new Node('talent'));
+    // Talent nodes with tech labels - only show some labels to avoid clutter
+    for (let i = 0; i < 24; i++) {
+      const showLabel = i < 18; // Show labels for first 18 nodes only
+      const label = showLabel ? techLabels[i % techLabels.length] : null;
+      nodes.push(new Node('talent', label));
     }
     
     let time = 0;
@@ -109,16 +173,16 @@ export const Hero3D = () => {
       const centerX = canvas.offsetWidth / 2;
       const centerY = canvas.offsetHeight / 2;
       
-      // Draw central hub (representing JM DATA TALENT platform)
-      const hubSize = 40 + Math.sin(pulsePhase) * 5;
+      // Draw central hub (JM DATA TALENT platform)
+      const hubSize = 45 + Math.sin(pulsePhase) * 5;
       
       // Hub glow
-      const hubGradient = ctx.createRadialGradient(centerX, centerY, hubSize * 0.3, centerX, centerY, hubSize * 2);
-      hubGradient.addColorStop(0, 'rgba(60, 131, 245, 0.5)');
+      const hubGradient = ctx.createRadialGradient(centerX, centerY, hubSize * 0.3, centerX, centerY, hubSize * 2.5);
+      hubGradient.addColorStop(0, 'rgba(60, 131, 245, 0.6)');
       hubGradient.addColorStop(1, 'rgba(60, 131, 245, 0)');
       ctx.fillStyle = hubGradient;
       ctx.beginPath();
-      ctx.arc(centerX, centerY, hubSize * 2, 0, Math.PI * 2);
+      ctx.arc(centerX, centerY, hubSize * 2.5, 0, Math.PI * 2);
       ctx.fill();
       
       // Hub core
@@ -139,12 +203,12 @@ export const Hero3D = () => {
       
       // Hub text "JM"
       ctx.fillStyle = 'white';
-      ctx.font = 'bold 20px Arial';
+      ctx.font = 'bold 24px Manrope';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText('JM', centerX, centerY);
       
-      // Update and draw connections from talent to companies
+      // Update and draw connections from hub to companies
       ctx.strokeStyle = 'rgba(60, 131, 245, 0.15)';
       ctx.lineWidth = 1;
       
@@ -171,7 +235,7 @@ export const Hero3D = () => {
             const distance = Math.sqrt(dx * dx + dy * dy);
             
             if (distance < 120 && Math.random() > 0.95) {
-              const opacity = 0.1 + (1 - distance / 120) * 0.2;
+              const opacity = 0.08 + (1 - distance / 120) * 0.12;
               ctx.strokeStyle = `rgba(60, 131, 245, ${opacity})`;
               ctx.lineWidth = 0.5;
               ctx.beginPath();
@@ -187,8 +251,8 @@ export const Hero3D = () => {
       nodes.forEach(node => node.draw());
       
       // Draw label
-      ctx.fillStyle = 'rgba(14, 22, 41, 0.6)';
-      ctx.font = '14px IBM Plex Sans';
+      ctx.fillStyle = 'rgba(14, 22, 41, 0.7)';
+      ctx.font = '14px Inter';
       ctx.textAlign = 'center';
       ctx.fillText('Connecting Talent with Opportunity', centerX, canvas.offsetHeight - 30);
       
