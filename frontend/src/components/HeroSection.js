@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button } from './ui/button.jsx';
+import { Hero3D } from './Hero3D';
 
 export const HeroSection = ({ onBookDemo, onViewJobs }) => {
   return (
@@ -41,29 +42,9 @@ export const HeroSection = ({ onBookDemo, onViewJobs }) => {
             </div>
           </div>
 
-          {/* Right: Professional Team Image */}
-          <div className="relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img 
-                src="/hero-team.png" 
-                alt="Professional tech team"
-                className="w-full h-auto object-cover"
-              />
-              {/* Floating stat card */}
-              <div className="absolute bottom-6 right-6 bg-white rounded-xl p-5 shadow-2xl">
-                <div className="flex items-center gap-4">
-                  <div className="bg-[#0066ff] rounded-lg p-3">
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 uppercase tracking-wider font-semibold" style={{ fontFamily: 'Inter' }}>Placement Success</p>
-                    <p className="text-2xl font-black text-[#0e1629]" style={{ fontFamily: 'Manrope' }}>98.4%</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {/* Right: 3D Technology Network */}
+          <div className="relative h-[500px] lg:h-[600px]">
+            <Hero3D />
           </div>
         </div>
       </div>
