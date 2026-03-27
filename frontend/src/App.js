@@ -30,6 +30,52 @@ function App() {
   useEffect(() => {
     // Seed jobs on first load
     seedJobs();
+    
+    // Hide Emergent branding
+    const hideEmergentBranding = () => {
+      const selectors = [
+        '[data-testid*="emergent"]',
+        '[class*="emergent"]',
+        '[class*="Emergent"]',
+        'a[href*="emergent"]',
+        'button:contains("Emergent")',
+        'div[style*="position: fixed"]'
+      ];
+      
+      selectors.forEach(selector => {
+        try {
+          document.querySelectorAll(selector).forEach(el => {
+            if (el.textContent && el.textContent.includes('Emergent')) {
+              el.style.display = 'none';
+            }
+          });
+        } catch (e) {}
+      });
+      
+      // Also hide any fixed position elements containing "Emergent" or "Made with"
+      document.querySelectorAll('*').forEach(el => {
+        const style = window.getComputedStyle(el);
+        if (style.position === 'fixed' && el.textContent && 
+            (el.textContent.includes('Emergent') || el.textContent.includes('Made with'))) {
+          el.style.display = 'none';
+        }
+      });
+    };
+    
+    // Run immediately and after a delay
+    hideEmergentBranding();
+    const timer = setTimeout(hideEmergentBranding, 1000);
+    const timer2 = setTimeout(hideEmergentBranding, 3000);
+    
+    // Also run on mutations
+    const observer = new MutationObserver(hideEmergentBranding);
+    observer.observe(document.body, { childList: true, subtree: true });
+    
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(timer2);
+      observer.disconnect();
+    };
   }, []);
 
   const seedJobs = async () => {
