@@ -34,7 +34,7 @@ export const Navbar = ({ onBookDemo }) => {
             <img 
               src="/logo.png" 
               alt="JM DATA TALENT" 
-              className="h-10"
+              className="h-12"
             />
           </a>
 

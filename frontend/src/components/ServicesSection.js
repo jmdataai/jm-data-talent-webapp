@@ -73,7 +73,8 @@ export const ServicesSection = ({ onEnquire }) => {
               >
                 <div className="mb-8">
                   <div className="inline-flex p-5 bg-gradient-to-br from-[#3c83f5] to-[#1a6ae8] rounded-xl shadow-lg">
-                    <Icon size={40} color="#ffffff" strokeWidth={1.5} />\n                  </div>
+                    <Icon size={40} color="#ffffff" strokeWidth={1.5} />
+                  </div>
                 </div>
                 
                 <h3 className="text-2xl font-black text-[#0e1629] mb-4 leading-tight">
