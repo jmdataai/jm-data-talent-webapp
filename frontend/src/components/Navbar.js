@@ -5,6 +5,7 @@ import { Menu, X } from 'lucide-react';
 export const Navbar = ({ onBookDemo }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState('IT Staffing');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +22,10 @@ export const Navbar = ({ onBookDemo }) => {
     { label: 'Executive Search', href: '#services' },
     { label: 'AI Solutions', href: '#ai-solutions' },
   ];
+
+  const handleNavClick = (label, href) => {
+    setActiveLink(label);
+  };
 
   return (
     <nav
@@ -40,12 +45,15 @@ export const Navbar = ({ onBookDemo }) => {
 
           {/* Desktop navigation - Clean and minimal like stitch */}
           <div className="hidden lg:flex items-center gap-10">
-            {navLinks.map((link, index) => (
+            {navLinks.map((link) => (
               <a
-                key={link.href}
+                key={link.label}
                 href={link.href}
-                className={`text-[15px] text-gray-600 hover:text-[#0e1629] transition-colors font-normal relative ${
-                  index === 0 ? 'text-[#3c83f5] after:absolute after:bottom-[-8px] after:left-0 after:right-0 after:h-[2px] after:bg-[#3c83f5]' : ''
+                onClick={() => handleNavClick(link.label, link.href)}
+                className={`text-[15px] transition-colors font-normal relative ${
+                  activeLink === link.label 
+                    ? 'text-[#0066ff] after:absolute after:bottom-[-8px] after:left-0 after:right-0 after:h-[2px] after:bg-[#0066ff]' 
+                    : 'text-gray-600 hover:text-[#0e1629]'
                 }`}
                 data-testid={`nav-link-${link.label.toLowerCase().replace(' ', '-')}`}
                 style={{ fontFamily: 'Inter' }}
@@ -95,10 +103,15 @@ export const Navbar = ({ onBookDemo }) => {
           <div className="px-4 py-6 space-y-4">
             {navLinks.map((link) => (
               <a
-                key={link.href}
+                key={link.label}
                 href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block text-[#0e1629] hover:text-[#3c83f5] transition-colors font-medium py-2"
+                onClick={() => {
+                  handleNavClick(link.label, link.href);
+                  setIsMobileMenuOpen(false);
+                }}
+                className={`block transition-colors font-medium py-2 ${
+                  activeLink === link.label ? 'text-[#0066ff]' : 'text-[#0e1629] hover:text-[#0066ff]'
+                }`}
                 data-testid={`mobile-nav-link-${link.label.toLowerCase().replace(' ', '-')}`}
               >
                 {link.label}
