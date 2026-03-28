@@ -10,7 +10,7 @@ import { Badge } from '@/components/ui/badge.jsx';
 import { Toaster } from '@/components/ui/sonner';
 import { toast } from 'sonner';
 import {
-  Loader2, Plus, Pencil, Trash2, LogOut, Briefcase, X, Check,
+  Loader2, Plus, Pencil, Trash2, LogOut, Briefcase, X, Check, ArrowLeft,
 } from 'lucide-react';
 
 const EMPTY_FORM = {
@@ -29,8 +29,10 @@ function LoginScreen({ onLogin }) {
     setLoading(true);
     setError('');
     try {
-      const res = await fetch('/api/jobs', {
-        headers: { 'x-admin-password': password },
+      const res = await fetch('/api/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
       });
       if (res.ok) {
         onLogin(password);
@@ -76,6 +78,12 @@ function LoginScreen({ onLogin }) {
             {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Sign In'}
           </Button>
         </form>
+
+        <div className="mt-6 text-center">
+          <a href="/" className="text-sm text-gray-400 hover:text-[#3c83f5] flex items-center justify-center gap-1">
+            <ArrowLeft size={14} /> Back to website
+          </a>
+        </div>
       </div>
     </div>
   );
@@ -246,7 +254,7 @@ export function AdminPage() {
   const [password, setPassword] = useState(() => sessionStorage.getItem('admin_pw') || '');
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [modal, setModal] = useState(null); // null | 'add' | job object
+  const [modal, setModal] = useState(null);
 
   const isLoggedIn = !!password;
 
@@ -325,17 +333,26 @@ export function AdminPage() {
             <p className="text-gray-400 text-xs">Admin Panel</p>
           </div>
         </div>
-        <Button
-          onClick={handleLogout}
-          variant="outline"
-          className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white text-sm"
-        >
-          <LogOut size={14} className="mr-2" /> Logout
-        </Button>
+        <div className="flex items-center gap-3">
+          <a href="/">
+            <Button
+              variant="outline"
+              className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white text-sm"
+            >
+              <ArrowLeft size={14} className="mr-2" /> Back to Site
+            </Button>
+          </a>
+          <Button
+            onClick={handleLogout}
+            variant="outline"
+            className="border-gray-600 text-gray-300 hover:bg-gray-800 hover:text-white text-sm"
+          >
+            <LogOut size={14} className="mr-2" /> Logout
+          </Button>
+        </div>
       </header>
 
       <main className="max-w-5xl mx-auto p-6">
-        {/* Toolbar */}
         <div className="flex items-center justify-between mb-6">
           <div>
             <h2 className="text-2xl font-bold text-[#0e1629]">Open Positions</h2>
@@ -349,7 +366,6 @@ export function AdminPage() {
           </Button>
         </div>
 
-        {/* Jobs list */}
         {loading ? (
           <div className="flex justify-center py-24">
             <Loader2 className="h-8 w-8 animate-spin text-[#3c83f5]" />
@@ -405,7 +421,6 @@ export function AdminPage() {
         )}
       </main>
 
-      {/* Job Form Modal */}
       {modal && (
         <JobFormModal
           job={modal === 'add' ? null : modal}
