@@ -252,7 +252,7 @@ export function AdminPage() {
 
   useEffect(() => {
     if (isLoggedIn) fetchJobs();
-  }, [isLoggedIn]);
+  }, [isLoggedIn]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleLogin = (pw) => {
     sessionStorage.setItem('admin_pw', pw);
